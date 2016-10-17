@@ -6,6 +6,8 @@ set :session_secret, '290584395084360958609684605986dogjdflgkdfhge9e'
 
 get '/' do
   session[:secret_word] = get_secret_word
+  session[:correct_letters] = []
+  session[:incorrect_letters] = []
   @secret_word = session[:secret_word]
   erb :index
 end
