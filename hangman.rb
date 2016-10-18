@@ -58,9 +58,6 @@ helpers do
   def update_game
   end
 
-  def set_message
-  end
-
   def create_word_array
     return_arr = []
     File.open("5desk.txt", "r") do |f|
