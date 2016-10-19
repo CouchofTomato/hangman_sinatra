@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 
 enable :sessions
 set :session_secret, '290584395084360958609684605986dogjdflgkdfhge9e'
