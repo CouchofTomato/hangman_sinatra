@@ -1,4 +1,3 @@
-<%= @secret_word %>
 <h1>Hangman</h1>
 <div class="secret_word">
   <p>
@@ -13,23 +12,24 @@
 </div>
 <div class="guessed_letters">
   <p>
-    Guessed letters:
+    Guessed letters: [
     <% @guessed_letters.each do |letter| %>
       <%= "#{letter} " %>
     <% end %>
+    ]
   </p>
 </div>
 <div class="turns_left">
   <p>
-    Number of turns left: <%= @turns_left.length %>
+    Number of incorrect guesses left: <span class="turns_num"><%= @turns_left.length %></span>
   </p>
 </div>
 
 <div class="div_form">
   <form action="/" method="post">
-    <label for="guess">Enter a guess</label>
-    <input id="letter_guess" type="text" name="guess" />
-    <input id="sub_button" type="submit" name="submit_guess" value="Submit!" />
+    <label for="guess">Enter a letter:</label>
+    <input id="letter_guess" type="text" name="guess" maxlength="1" size="2" autofocus />
+    <input id="sub_button" type="submit" name="submit_guess" value="Submit" />
   </form>
   <% if message %>
     <%= "#{message}" %>

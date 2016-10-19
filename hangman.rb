@@ -28,15 +28,13 @@ post '/' do
 end
 
 get '/winner' do
+  @secret_word = session[:secret_word]
   erb :winner
 end
 
 get '/loser' do
+  @secret_word = session[:secret_word]
   erb :loser
-end
-
-get '/beat_it_pal' do
-  erb :beat_it_pal
 end
 
 helpers do
@@ -44,7 +42,7 @@ helpers do
   def game_setup
     session[:secret_word] = get_secret_word
     session[:guessed_letters] = []
-    session[:turns_left] = [1,2,3,4,5,6,7,8,9,10]
+    session[:turns_left] = [1,2,3,4,5,6,7]
   end
 
   def get_secret_word
