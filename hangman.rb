@@ -20,19 +20,31 @@ post '/' do
   guess = params['guess'].downcase
   good_guess = check_guess(guess)
   if good_guess
-    update_game
+    update_game(guess)
   else
     message = "Invalid input. Please try again"
   end
   erb :index, :locals => {:message => message}
 end
 
+get '/winner' do
+  erb :winner
+end
+
+get '/loser' do
+  erb :loser
+end
+
+get '/beat_it_pal' do
+  erb :beat_it_pal
+end
+
 helpers do
 
   def game_setup
     session[:secret_word] = get_secret_word
-    session[:guessed_letters] = ["a", "e", "i", "o", "u"]
-    session[:turns_left] = 10
+    session[:guessed_letters] = []
+    session[:turns_left] = [1,2,3,4,5,6,7,8,9,10]
   end
 
   def get_secret_word
@@ -55,7 +67,24 @@ helpers do
     return @guessed_letters.include?(guess) ? false : true
   end
 
-  def update_game
+  def update_game(guess)
+    @guessed_letters << guess
+    @guessed_letters = @guessed_letters.sort
+    if winner?
+      redirect '/winner'
+    end
+    update_turns_left(guess)
+    if @turns_left.empty?
+      redirect '/loser'
+    end
+  end
+
+  def winner?
+    @secret_word.split("").all? {|letter| @guessed_letters.include?(letter)}
+  end
+
+  def update_turns_left(guess)
+    @turns_left.pop unless @secret_word.split("").include?(guess)
   end
 
   def create_word_array
